@@ -53,11 +53,11 @@ public class ConnectionPoolTest {
         Assert.assertNotNull(connectionPool.connect(connectionConfig));
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void testWithDirtyConnection() {
         ConnectionPool connectionPool = new ConnectionPoolImpl(1, connectionFactory);
         Connection con = connectionPool.connect(connectionConfig);
-        connectionPool.release(con);
+        con.release();
         con.execute("");
     }
 
